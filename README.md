@@ -1,71 +1,74 @@
-# typescript-mcp-demo
+# Model Context Protocol (MCP) TypeScript Demo
 
-这是一个基于 Model Context Protocol (MCP) 的 TypeScript 示例项目，展示了如何创建一个简单的 MCP 服务器，包含基本的工具（tools）和资源（resources）功能。
+This is a TypeScript example project based on the Model Context Protocol (MCP), demonstrating how to create a simple MCP server with basic tools and resources functionality.
 
-## 功能特性
+## Language / 语言
+- [English (Default)](#english)
+- [简体中文](#简体中文)
 
-- 提供一个简单的加法工具（add tool）
-- 提供一个动态问候资源（greeting resource）
-- 使用 TypeScript 开发
-- 支持标准输入/输出通信
 
-## 相关文档
+## Features
 
-- [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk) - 官方 TypeScript SDK 文档
-- [MCP Inspector](https://github.com/modelcontextprotocol/inspector) - MCP 服务测试工具文档
-- [Model Context Protocol](https://modelcontextprotocol.io/) - MCP 协议规范文档
+- Provides a simple addition tool
+- Provides a dynamic greeting resource
+- Developed with TypeScript
+- Supports standard input/output communication
 
-## 环境要求
+## Documentation
+
+- [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk) - Official TypeScript SDK Documentation
+- [MCP Inspector](https://github.com/modelcontextprotocol/inspector) - MCP Service Testing Tool Documentation
+- [Model Context Protocol](https://modelcontextprotocol.io/) - MCP Protocol Specification
+
+## Requirements
 
 - Node.js >= 20.10.0
 - pnpm >= 8.0.0
 
+## Installation
 
-
-## 安装步骤
-
-1. 安装依赖：
+1. Install dependencies:
 
 ```bash
 pnpm i
 ```
 
-2. 编译项目
+2. Build the project:
 
 ```bash
 pnpm run build
 ```
 
-编译后的文件将输出到 `dist` 目录。
+The compiled files will be output to the `dist` directory.
 
-## 示例
+## Examples
 
-* 有关标准输入输出 (stdio) 传输方式的详细信息，请参考 [stdio 传输说明](stdio.md)。
-* 对于远程服务器，使用服务器发送事件（SSE）端点和单独的端点启动web服务器，请参考[HTTP with SSE](sse.md)
-* [OpenAI 与 自定义的MCP工具集成指南](openai_call.md)
+* For details about standard input/output (stdio) transport, please refer to [Stdio Transport](stdio.md).
+* For remote servers using Server-Sent Events (SSE) endpoints and starting a web server with separate endpoints, refer to [HTTP with SSE](sse.md)
+* [OpenAI Integration with Custom MCP Tools Guide](openai_call.md)
 
-## 开发新功能
+## Developing New Features
 
-要添加新的工具或资源，请在 `src/index.ts` 中：
+To add new tools or resources in `src/index.ts`:
 
-1. 使用 `server.tool()` 添加新工具
-2. 使用 `server.resource()` 添加新资源
-3. 使用 Zod 定义输入参数的类型
-4. 实现相应的处理逻辑
-5. 创建对应的测试用例文件
+1. Use `server.tool()` to add new tools
+2. Use `server.resource()` to add new resources
+3. Define input parameter types using Zod
+4. Implement the corresponding processing logic
+5. Create corresponding test case files
 
-## 故障排除
+## Troubleshooting
 
-如果遇到问题：
+If you encounter issues:
 
-1. 确保所有依赖都已正确安装
-2. 检查编译输出是否有错误
-3. 验证测试用例 JSON 格式是否正确
-4. 检查进程输入输出是否正确配置
+1. Ensure all dependencies are correctly installed
+2. Check compilation output for errors
+3. Verify test case JSON format is correct
+4. Check process input/output configuration
 
-## 注意事项
+## Notes
 
-- 确保测试时使用编译后的 JavaScript 文件（在 `dist` 目录中）
-- 使用 `@modelcontextprotocol/inspector` 工具进行测试
-- 遵循 JSON-RPC 2.0 规范编写请求
-- 正确处理异步操作和错误情况
+- Make sure to use compiled JavaScript files (in the `dist` directory) for testing
+- Use the `@modelcontextprotocol/inspector` tool for testing
+- Follow JSON-RPC 2.0 specification when writing requests
+- Handle asynchronous operations and error cases properly

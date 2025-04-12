@@ -1,12 +1,11 @@
-# HTTP with SSE Guide
+# HTTP with SSE 使用说明
 
-## Basic Concepts
+## 基本概念
 
-Server-Sent Events (SSE) is a server push technology that enables a server to push data to clients.
 
-## SSE Server Implementation
+## sse服务端实现
 
-```typescript
+```ts
 import express, { Request, Response } from "express";
 import { McpServer, ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
@@ -46,7 +45,7 @@ const port = 3001;
 // sessionId to transport
 const transports: {[sessionId: string]: SSEServerTransport} = {};
 
-// Establish SSE connection
+// SSE 连接建立
 app.get("/sse", async (_: Request, res: Response) => {
   const transport = new SSEServerTransport('/messages', res);
   transports[transport.sessionId] = transport;
@@ -56,7 +55,7 @@ app.get("/sse", async (_: Request, res: Response) => {
   await server.connect(transport);
 });
 
-// Handle SSE messages
+// 处理 SSE 消息
 app.post("/messages", async (req: Request, res: Response) => {
   const sessionId = req.query.sessionId as string;
   const transport = transports[sessionId];
@@ -67,25 +66,27 @@ app.post("/messages", async (req: Request, res: Response) => {
   }
 });
 
+
 app.listen(port, "localhost", () => {
     console.log(`Server started on port ${port}`);
 });
 ```
 
-## Testing Methods
+## 测试方法
 
-### Using the Inspector Tool
+### 使用 Inspector 工具
 
-It's recommended to use the official `@modelcontextprotocol/inspector` tool for testing:
+推荐使用官方提供的 `@modelcontextprotocol/inspector` 工具进行测试：
 
-Run the following command:
+运行如下命令：
 
 ```bash
 npx @modelcontextprotocol/inspector
 ```
 
-Visit: http://127.0.0.1:6274/ and select `SSE` as the `TransportType`:
+访问：http://127.0.0.1:6274/，`TransportType` 选择 `SSE`，如图：
 
 ![alt text](image/sse_1744440828533.png)
+
 
 ![alt text](image/sse_1744440885070.png)
