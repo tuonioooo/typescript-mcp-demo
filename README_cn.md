@@ -40,9 +40,9 @@ pnpm run build
 
 ## 示例
 
-* 有关标准输入输出 (stdio) 传输方式的详细信息，请参考 [stdio 传输说明](stdio.md)。
-* 对于远程服务器，使用服务器发送事件（SSE）端点和单独的端点启动web服务器，请参考[HTTP with SSE](sse.md)
-* [OpenAI 与 自定义的MCP工具集成指南](openai_call.md)
+* 有关标准输入输出 (stdio) 传输方式的详细信息，请参考 [stdio 传输说明](stdio_cn.md)。
+* 对于远程服务器，使用服务器发送事件（SSE）端点和单独的端点启动web服务器，请参考[HTTP with SSE](sse_cn.md)
+* [OpenAI 与 自定义的MCP工具集成指南](openai_call_cn.md)
 
 ## 开发新功能
 
