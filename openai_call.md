@@ -73,6 +73,53 @@ if (toolCall.function.name === 'sse-add') {
 }
 ```
 
+## 运行
+
+```ts
+npx tsx src/gjld_ai.ts
+```
+
+预览结果
+
+```
+Tool call received: sse-add
+Tool call arguments: {"a": 4, "b": 4}
+Calling sse-add with args: { a: 4, b: 4 }
+Tool result: {
+  "content": [
+    {
+      "type": "text",
+      "text": "8"
+    }
+  ]
+}
+Tool result: 8
+Sending follow-up request to model
+Final response: {
+  role: 'assistant',
+  content: '4 加上 4 的和是 8。',
+  reasoning_content: '```'
+}
+Response: 4 加上 4 的和是 8。
+Processing prompt: 用中文回答：给Lucy一个问候
+Sending initial request to model with tools
+Tool call received: get-greeting
+Tool call arguments: {"name": "Lucy"}
+Reading greeting resource for: Lucy
+Using URI: sse-greeting://Lucy
+Available resources before reading: { resources: [] }
+Resource result: {
+  "contents": [
+    {
+      "uri": "sse-greeting://Lucy",
+      "text": "Hello, Lucy!"
+    }
+  ]
+}
+Tool result: Hello, Lucy!
+Response: Hello, Lucy!
+```
+
 ## 处理流程
 
 1. 接收用户输入
