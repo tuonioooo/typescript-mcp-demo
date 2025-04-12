@@ -68,7 +68,7 @@ npx tsx src/sse/server.ts
 Use the inspector tool to test the server:
 
 ```bash
-npx @modelcontextprotocol/inspector http://localhost:3000
+npx @modelcontextprotocol/inspector
 ```
 
 Test the methods and resources in the interface:
@@ -86,7 +86,7 @@ To use the SSE transport with VS Code GitHub Copilot, create or modify `.vscode/
 ```jsonc
 {
     "servers": {
-        "my-mcp-server-42f01a96": {
+        "my-mcp-sse-server-42f01a96": {
             "type": "sse",
             "url": "http://localhost:3001"
         }

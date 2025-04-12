@@ -74,6 +74,12 @@ app.listen(port, "localhost", () => {
 
 ## 测试方法
 
+### 运行MCP的SSE服务端
+
+```bash
+npx tsx src/sse/server.ts
+```
+
 ### 使用 Inspector 工具
 
 推荐使用官方提供的 `@modelcontextprotocol/inspector` 工具进行测试：
@@ -93,12 +99,14 @@ npx @modelcontextprotocol/inspector
 
 ### VS Code Configuration
 
-To use the SSE transport with VS Code GitHub Copilot, create or modify `.vscode/mcp.json`:
+在VS Code GitHub Copilot中使用MCP的SSE服务 
+
+`.vscode/mcp.json`:
 
 ```jsonc
 {
     "servers": {
-        "my-mcp-server-42f01a96": {
+        "my-mcp-sse-server-42f01a96": {
             "type": "sse",
             "url": "http://localhost:3001"
         }
