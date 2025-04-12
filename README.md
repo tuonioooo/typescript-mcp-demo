@@ -1,74 +1,37 @@
-# Model Context Protocol (MCP) TypeScript Demo
+# MCP Protocol SDK Demo
 
-This is a TypeScript example project based on the Model Context Protocol (MCP), demonstrating how to create a simple MCP server with basic tools and resources functionality.
+This project demonstrates how to use the MCP (Model Context Protocol) SDK to implement client-server communication. It includes examples of different transport methods:
 
-## Language
-- [English](README.md)
-- [简体中文](README_cn.md)
+1. [Stdio Transport](./stdio.md): Using standard input/output streams
+2. [Server-Sent Events (SSE)](./sse.md): Using HTTP-based SSE for real-time communication
+3. [OpenAI Call](./openai_call.md): Using OpenAI's API
 
+## Project Setup
 
-## Features
-
-- Provides a simple addition tool
-- Provides a dynamic greeting resource
-- Developed with TypeScript
-- Supports standard input/output communication
-
-## Documentation
-
-- [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk) - Official TypeScript SDK Documentation
-- [MCP Inspector](https://github.com/modelcontextprotocol/inspector) - MCP Service Testing Tool Documentation
-- [Model Context Protocol](https://modelcontextprotocol.io/) - MCP Protocol Specification
-
-## Requirements
-
-- Node.js >= 20.10.0
-- pnpm >= 8.0.0
-
-## Installation
-
-1. Install dependencies:
-
+1. Install dependencies
 ```bash
-pnpm i
+pnpm install
 ```
 
-2. Build the project:
-
+2. Build the project
 ```bash
-pnpm run build
+pnpm build
 ```
-
-The compiled files will be output to the `dist` directory.
 
 ## Examples
 
-* For details about standard input/output (stdio) transport, please refer to [Stdio Transport](stdio.md).
-* For remote servers using Server-Sent Events (SSE) endpoints and starting a web server with separate endpoints, refer to [HTTP with SSE](sse.md)
-* [OpenAI Integration with Custom MCP Tools Guide](openai_call.md)
+Each transport method has its own example with detailed documentation:
 
-## Developing New Features
+- Check [stdio.md](./stdio.md) for Stdio transport examples
+- Check [sse.md](./sse.md) for SSE transport examples
+- Check [openai_call.md](./openai_call.md) for OpenAI API integration examples
 
-To add new tools or resources in `src/index.ts`:
+## Testing
 
-1. Use `server.tool()` to add new tools
-2. Use `server.resource()` to add new resources
-3. Define input parameter types using Zod
-4. Implement the corresponding processing logic
-5. Create corresponding test case files
+You can use the `@modelcontextprotocol/inspector` tool to test your MCP server:
 
-## Troubleshooting
+```bash
+npx @modelcontextprotocol/inspector [command]
+```
 
-If you encounter issues:
-
-1. Ensure all dependencies are correctly installed
-2. Check compilation output for errors
-3. Verify test case JSON format is correct
-4. Check process input/output configuration
-
-## Notes
-
-- Make sure to use compiled JavaScript files (in the `dist` directory) for testing
-- Use the `@modelcontextprotocol/inspector` tool for testing
-- Follow JSON-RPC 2.0 specification when writing requests
-- Handle asynchronous operations and error cases properly
+Replace `[command]` with the appropriate command for your transport method.

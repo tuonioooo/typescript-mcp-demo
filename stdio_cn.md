@@ -145,3 +145,45 @@ Testing add tool:
 Testing greeting resource:
 Greeting: { contents: [ { uri: 'greeting://Lucy', text: 'Hello, Lucy!' } ] }
 ```
+
+### vscode github copilot 配置我们搭建的mcp服务
+
+新建`.vscode/mcp.json` 文件
+
+```
+// Example .vscode/mcp.json
+{
+    "servers": {
+        // "my-mcp-server-42f01a96" is the server ID, which is a unique identifier for the server.
+        // The server ID is used to identify the server in the MCP extension and in the MCP CLI.
+        "my-mcp-server-42f01a96": {
+            "type": "stdio",
+            "command": "npx",
+            "args": [
+                "tsx",
+                "E:/dev_workspace/mcp_workspace/typescript-mcp-demo/src/stdio/server.ts"
+            ]
+        }
+    }
+}
+```
+
+* **`type: "stdio"`**：指定通信方式为标准输入/输出流（Standard Input/Output），适用于本地运行的 MCP 服务。
+* **`command: "npx"`**：使用 `npx` 命令运行后续指定的程序。`npx` 是 Node.js 提供的工具，用于执行项目中安装的包，避免全局安装。
+* **`args`**：传递给 `npx` 的参数数组：
+	- **`"tsx"`**：使用 `tsx` 工具直接运行 TypeScript 文件，无需预先编译。`tsx` 基于 `esbuild`，支持现代 TypeScript 和 ESM 模块，性能优于传统的 `ts-node`。
+	- **`"xxx/src/stdio/server.ts"`**：指定要运行的 TypeScript 文件路径，即您的 MCP 服务的入口文件。
+
+![](https://mmbiz.qpic.cn/sz_mmbiz_png/bu5aWs1MtkhBWW38zE6CWAibVmNeJ31EDNV5FSXGbta3wlZw3r8qyfhEYYWSDhchhtKd9glGhh1g7XFTghdgXNA/640?wx_fmt=png&from=appmsg)
+
+![](https://mmbiz.qpic.cn/sz_mmbiz_png/bu5aWs1MtkhBWW38zE6CWAibVmNeJ31ED5RhpAPxb0PTMGB4uwvgZD52CvQgZkEdoNxHf1s85mlVgvkIRibksoGQ/640?wx_fmt=png&from=appmsg)
+
+通过#触发MCP工具函数名称，示例是：#add
+
+![](https://mmbiz.qpic.cn/sz_mmbiz_png/bu5aWs1MtkhBWW38zE6CWAibVmNeJ31EDk5lOM6Ryo9YywMbWG7eVN1ia2akuo3qaNxvQh3krt7jLlUibpGPmsoIg/640?wx_fmt=png&from=appmsg)
+
+点击continue，就会自动调用MCP插件计算结果
+
+![](https://mmbiz.qpic.cn/sz_mmbiz_png/bu5aWs1MtkhBWW38zE6CWAibVmNeJ31ED7NaSQZ2Jic4D0YicZMHYkgzTdXrDbFU3f3Mz4Pjku7nXqxE6SckMib12g/640?wx_fmt=png&from=appmsg)
+
+![](https://mmbiz.qpic.cn/sz_mmbiz_png/bu5aWs1MtkhBWW38zE6CWAibVmNeJ31ED70a6ib6xzo5EWfojGZAUdX1KmW8DH23DEF3S9fYD6Be93ZfEJbHxcyw/640?wx_fmt=png&from=appmsg)

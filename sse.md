@@ -1,91 +1,101 @@
-# HTTP with SSE Guide
+# Server-Sent Events (SSE) Transport Guide
 
 ## Basic Concepts
 
-Server-Sent Events (SSE) is a server push technology that enables a server to push data to clients.
+Server-Sent Events (SSE) is a standard that enables servers to push data to web clients over HTTP connections. It's particularly useful for real-time updates and streaming data. In the MCP protocol, SSE transport provides a way to establish persistent connections between clients and servers.
 
-## SSE Server Implementation
+## Server Implementation
+
+In `src/sse/server.ts`, we implement an SSE-based server using `SseServerTransport`:
 
 ```typescript
-import express, { Request, Response } from "express";
 import { McpServer, ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
+import { SseServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
 import { z } from "zod";
-import { CallToolResult, ReadResourceResult } from "@modelcontextprotocol/sdk/types.js";
 
-const server = new McpServer({
-  name: "sse-server",
-  version: "1.0.0"
-});
-
-// Add an addition tool
-server.tool("sse-add",
-  "A tool that adds two numbers",
-  { a: z.number(), b: z.number() },
-  async ({ a, b }): Promise<CallToolResult> => ({
-    content: [{ type: "text", text: String(a + b) }]
-  })
-);
-
-// Add a dynamic greeting resource
-server.resource(
-  "sse-greeting",
-  new ResourceTemplate("greeting://{name}", { list: undefined }),
-  async (uri, { name }): Promise<ReadResourceResult> => ({
-    contents: [{
-      uri: uri.href,
-      text: `Hello, ${name}!`
-    }]
-  })
-);
-
-const app = express();
-const port = 3001;
-
-// to support multiple simultaneous connections we have a lookup object from
-// sessionId to transport
-const transports: {[sessionId: string]: SSEServerTransport} = {};
-
-// Establish SSE connection
-app.get("/sse", async (_: Request, res: Response) => {
-  const transport = new SSEServerTransport('/messages', res);
-  transports[transport.sessionId] = transport;
-  res.on("close", () => {
-    delete transports[transport.sessionId];
+async function main() {
+  // Create an MCP server instance
+  const server = new McpServer({
+    name: "example-server",
+    version: "1.0.0"
   });
+
+  // Register the 'add' tool
+  server.tool("add",
+    { a: z.number(), b: z.number() },
+    async ({ a, b }) => ({
+      content: [{ type: "text", text: String(a + b) }]
+    })
+  );
+
+  // Add a dynamic greeting resource
+  server.resource(
+    "greeting",
+    new ResourceTemplate("greeting://{name}", { list: undefined }),
+    async (uri, { name }) => ({
+      contents: [{
+        uri: uri.href,
+        text: `Hello, ${name}!`
+      }]
+    })
+  );
+
+  // Start the SSE server on port 3000
+  const transport = new SseServerTransport({ port: 3000 });
   await server.connect(transport);
-});
+  console.log("Server started on port 3000");
+}
 
-// Handle SSE messages
-app.post("/messages", async (req: Request, res: Response) => {
-  const sessionId = req.query.sessionId as string;
-  const transport = transports[sessionId];
-  if (transport) {
-    await transport.handlePostMessage(req, res);
-  } else {
-    res.status(400).send('No transport found for sessionId');
-  }
-});
-
-app.listen(port, "localhost", () => {
-    console.log(`Server started on port ${port}`);
-});
+main().catch(console.error);
 ```
 
 ## Testing Methods
 
 ### Using the Inspector Tool
 
-It's recommended to use the official `@modelcontextprotocol/inspector` tool for testing:
-
-Run the following command:
+First, build the project:
 
 ```bash
-npx @modelcontextprotocol/inspector
+pnpm build
 ```
 
-Visit: http://127.0.0.1:6274/ and select `SSE` as the `TransportType`:
+Then start the server:
 
-![alt text](image/sse_1744440828533.png)
+```bash
+npx tsx src/sse/server.ts
+```
 
-![alt text](image/sse_1744440885070.png)
+Use the inspector tool to test the server:
+
+```bash
+npx @modelcontextprotocol/inspector http://localhost:3000
+```
+
+Test the methods and resources in the interface:
+
+![SSE Test Interface](image/sse_1744440828533.png)
+
+Testing Results:
+
+![SSE Test Results](image/sse_1744440885070.png)
+
+### VS Code Configuration
+
+To use the SSE transport with VS Code GitHub Copilot, create or modify `.vscode/mcp.json`:
+
+```jsonc
+{
+    "servers": {
+        "my-mcp-server-42f01a96": {
+            "type": "sse",
+            "url": "http://localhost:3001"
+        }
+    }
+}
+```
+
+Key configuration parameters:
+* **`type: "sse"`**: Specifies SSE as the transport method
+* **`url`**: The URL where your SSE server is running
+
+After configuring, you can use the MCP tools directly in VS Code with the #command syntax.

@@ -90,3 +90,26 @@ npx @modelcontextprotocol/inspector
 
 
 ![alt text](image/sse_1744440885070.png)
+
+### VS Code Configuration
+
+To use the SSE transport with VS Code GitHub Copilot, create or modify `.vscode/mcp.json`:
+
+```jsonc
+{
+    "servers": {
+        "my-mcp-server-42f01a96": {
+            "type": "sse",
+            "url": "http://localhost:3001"
+        }
+    }
+}
+```
+
+关键配置参数：
+* **`type:“sse”`**：指定sse作为传输方式
+* **`url`**：运行SSE服务器的url
+
+配置后，您可以直接在VS Code中使用MCP工具
+
+`#command syntax.`
