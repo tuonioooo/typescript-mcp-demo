@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+      "target": "ESNext",
+      "module": "NodeNext",
+      "moduleResolution": "NodeNext",
+      "outDir": "./dist",
+      "rootDir": "./src",
+      "strict": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
+      "types": ["node", "jest"]
+    },
+    "ts-node": {
+      "esm": true,
+      "experimentalSpecifierResolution": "node",
+    },
+    "include": ["src/**/*", "preview-build"],
+    "exclude": ["node_modules", "dist"]
+  }
