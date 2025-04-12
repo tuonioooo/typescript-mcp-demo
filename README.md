@@ -2,9 +2,9 @@
 
 This is a TypeScript example project based on the Model Context Protocol (MCP), demonstrating how to create a simple MCP server with basic tools and resources functionality.
 
-## Language / 语言
-- [English (Default)](#english)
-- [简体中文](#简体中文)
+## Language
+- [English](README.md)
+- [简体中文](README_cn.md)
 
 
 ## Features
