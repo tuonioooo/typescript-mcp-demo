@@ -6,7 +6,7 @@ Stdio Transport 是 MCP 协议中的一种传输方式，通过标准输入/输�
 
 ## 服务端实现
 
-在 `src/index.ts` 中，我们使用 `StdioServerTransport` 来实现基于标准输入输出的通信：
+在 `src/stdio/server.ts` 中，我们使用 `StdioServerTransport` 来实现基于标准输入输出的通信：
 
 ```typescript
 import { McpServer, ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
@@ -57,7 +57,7 @@ main().catch((error) => {
 
 ## 客户端实现
 
-在 `src/client.ts` 中，我们使用 `StdioClientTransport` 来实现客户端：
+在 `src/stdio/client.ts` 中，我们使用 `StdioClientTransport` 来实现客户端：
 
 ```ts
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
@@ -103,6 +103,12 @@ main().catch(console.error);
 ### 使用 Inspector 工具
 
 推荐使用官方提供的 `@modelcontextprotocol/inspector` 工具进行测试：
+
+先build
+
+```bash
+pnpm build
+```
 
 运行如下命令：
 
